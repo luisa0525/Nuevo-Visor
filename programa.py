@@ -1,8 +1,8 @@
 from flask import Flask,render_template, request, redirect, url_for
 from db import db
-from marcador import marcador
+from marcador import Marcador
 
-class programa:
+class Programa:
 
     def __init__(self):
 
@@ -21,9 +21,10 @@ class programa:
             self.app.run(debug=True)
 
     def Visor(self):
-        return render_template('Visor.html', Marcador=marcador.query.all())
+        return render_template('visor.html', Marcador=marcador.query.all())
+    
     def puntitos(self):
-        return render_template('mostrarTodos.html', Marcador=marcador.query.all())
+        return render_template('mostrartodos.html', Marcador=marcador.query.all())
 
     def agregar(self):
 
@@ -37,16 +38,16 @@ class programa:
             longitud=request.form['longitud']
             direccion=request.form['descripcion']
             contacto=request.form['contacto']
-            miMarcador=marcador(latitud, longitud, direccion, contacto)
+            miMarcador=marcador(nombre, latitud, longitud, direccion, contacto)
 
             #guardar el objeto
             db.session.add(miMarcador)
             db.session.commit()
 
-            return redirect(url_for('Visor'))
+            return redirect(url_for('visor.html'))
 
 
 
         return render_template('nuevomarcador.html')
     
-miPrograma=programa()
+miPrograma=Programa()

@@ -1,6 +1,6 @@
 from db import db
 
-class marcador(db.Model):
+class Marcador(db.Model):
 
     # nombre
 
